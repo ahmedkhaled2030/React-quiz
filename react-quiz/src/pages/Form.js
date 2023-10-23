@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Center from "../components/Center";
 import "../styles/global.css"; // Import your global CSS file
-import data from "./../db.json";
+
 const Form = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const Form = () => {
     };
 
     if (editedAnswers) {
-      console.log('edit')
+      console.log("edit");
       const quesObj = {
         id: parseInt(id),
         answer_id: null,
@@ -63,11 +63,17 @@ const Form = () => {
           is_true: p.is_true,
         })),
       };
-      await axios.patch("http://localhost:4000/data", {
-        questions_answers: [...db, quesObj],
-      });
+      const document = db.find((item) => item.id === quesObj.id);
+      if (document) {
+        const updatedData = db.filter((item) => item.id !== quesObj.id);
+        updatedData.push(quesObj)
+        await axios.patch("http://localhost:4000/data", {
+          questions_answers: updatedData
+        });
+      }
+     
     } else {
-      console.log('create')
+      console.log("create");
       await axios.patch("http://localhost:4000/data", {
         questions_answers: [...db, quesObj],
       });
@@ -111,7 +117,7 @@ const Form = () => {
   };
 
   const handleAnswerStatusChange = (index, answer, newstatus) => {
-    if (editedAnswers) { 
+    if (editedAnswers) {
       setEditedAnswers((prev) => {
         const editedAnswers = [...prev];
         editedAnswers[index].is_true = JSON.parse(newstatus);
@@ -124,11 +130,10 @@ const Form = () => {
         return answers;
       });
     }
-    
   };
 
   const removeAnswer = (indexToRemove) => {
-    if (editedAnswers) { 
+    if (editedAnswers) {
       setEditedAnswers((prev) => {
         return prev.filter((p, pIndex) => {
           return pIndex !== indexToRemove;
@@ -141,7 +146,6 @@ const Form = () => {
         });
       });
     }
-  
   };
 
   return (
@@ -150,7 +154,7 @@ const Form = () => {
         to="/"
         className="text-2xl px-4 py-2 bg-green-500 w-60 rounded-md my-4"
       >
-       Let's Go Home
+        Let's Go Home
       </Link>
       {isLoading ? (
         <div>Is Loading ...</div>
@@ -218,9 +222,15 @@ const Form = () => {
                     value={answer.values}
                     placeholder="Answer Status"
                   >
-                    <option value="" className="option" >-- Select --</option>
-                    <option value="true" className="option" >true</option>
-                    <option value="false" className="option" >false</option>
+                    <option value="" className="option">
+                      -- Select --
+                    </option>
+                    <option value="true" className="option">
+                      true
+                    </option>
+                    <option value="false" className="option">
+                      false
+                    </option>
                   </select>
                   <button
                     onClick={() => removeAnswer(index)}
