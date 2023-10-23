@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Center from "../components/Center";
 import "../styles/global.css"; // Import your global CSS file
-import data from "./../db.json";
+
 const Form = () => {
   const { id } = useParams();
   const navigate = useNavigate();
