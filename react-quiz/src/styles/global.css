@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  @apply border border-gray-200 rounded-sm px-1 py-2 w-full text-black;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply border-blue-900;
+}
+
+h1{
+    @apply   text-xl;
+}
+h2{
+    @apply mt-6 mb-2 text-lg;
+}
+
+label{
+    @apply text-white text-xl;
+}
+.btn-default{
+    @apply bg-white text-gray-800 px-4 py-1 rounded-sm border border-gray-200 shadow-sm;
+}
+
+.btn-submit{
+    @apply text-black bg-green-500 px-4 py-1 rounded-sm border border-gray-200 shadow-sm;
+}
