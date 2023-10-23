@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Question = ({ data, setScore, score }) => {
   const [clickedQuestions, setClickedQuestions] = useState([]);
@@ -19,9 +20,14 @@ const Question = ({ data, setScore, score }) => {
     <div>
       {data?.length > 0 &&
         data.map((item) => (
-          <div className="mb-6 bg-indigo-600 rounded-md py-4 shadow-md ">
+          <div className="mb-6 bg-indigo-600 rounded-md py-4 shadow-md relative">
             <h1 className="my-6 text-2xl text-white ">{item.text}</h1>
-
+            <Link
+              to={`/edit-form/${item.id}`}
+              className="btn-submit absolute top-1 right-1"
+            >
+              Edit
+            </Link>
             <div className="w-full flex flex-col justify-center items-center ">
               {item.answers.length > 0 &&
                 item.answers.map((answer) => (
