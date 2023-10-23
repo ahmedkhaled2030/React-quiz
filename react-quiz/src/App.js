@@ -12,7 +12,8 @@ function App() {
   <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/form" element={<Form />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/edit-form/:id" element={<Form />} />
       </Routes>
     </BrowserRouter>
     </div>
